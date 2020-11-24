@@ -10,9 +10,9 @@ We are not able to release data used in the analysis because of the restricted a
   - [Running the analysis](#sim-analysis)
 - [Real data applications](#real)
   - [Requirements](#real-req)
-  - [Constructing the reference LD matrix]#(real-ref)
-  - [Obtaining and cleaning the summary statistics]#(real-ss)
-  - [Running the analysis]#(real-analysis)
+  - [Constructing the reference LD matrix](#real-ref)
+  - [Obtaining and cleaning the summary statistics](#real-ss)
+  - [Running the analysis](#real-analysis)
 
 
 # <a name="sim"></a>Simulations
