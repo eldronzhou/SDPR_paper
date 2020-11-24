@@ -132,7 +132,7 @@ cd ../GCTB/; sbatch --array=1-22 gctb.sh
 cd ../SDPR/; sbatch --array=1-22 SDPR_ref.sh
 ```
 
-**<a name="real-geno"></a>3. Obtaining and cleaning the summary statistics**
+**<a name="real-ss"></a>3. Obtaining and cleaning the summary statistics**
 
 Many GWAS consortium publishes summary statistics. However, due to the data access agreement, we are not able to directly provide the original copy. You can find the study of the summary statistics in the Table 1 of the manuscript and download the summary statistics on your own. If you need assistance, feel free to submit to the issue. Here we provide an example on downloading and processing the height summary statistics from the GIANT consortium. The procedure is similar for other traits. 
 
