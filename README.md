@@ -1,7 +1,7 @@
 # SDPR_paper
 We are not able to release data used in the analysis because of the restricted access to the UK Biobank genotype and phenotype data. However, if you have access to UK Biobank, you can follow the instructions to reproduce the results in our paper. The path to the software and datasets in these scripts may not be correct. We use slurm to schedule jobs to HPC, and you need to change the header if you use another system. If you have issues about these scripts, please report to the [issue](https://github.com/eldronzhou/SDPR_paper/issues) page.
 
-## Table of Contents
+# Table of Contents
 - [Simulations](#sim)
   - [Requirements](#sim-req)
   - [Obtaining Genotype data](#sim-geno)
