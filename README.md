@@ -21,6 +21,7 @@ We are not able to release data used in the analysis because of the restricted a
 * PRS-CS (python2.7, numpy, scipy, recommend to install anaconda)
 * GCTB
 * GCTA
+* LDpred 
 * PLINK-1.90 
 * PLINK-2.0
 * R
