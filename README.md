@@ -30,7 +30,7 @@ We are not able to release data used in the analysis because of the restricted a
 ## Workflow
 **<a name="sim-geno"></a>1. Obtaining Genotype data**
 
-We provide the list of SNPs and individuals used in our simulations. You can obtain the exact genotype data we used if you have access the to UK Biobank.
+We provide the list of SNPs used in our simulations. Sample list used in the simulation can be obtained upon request so that you can obtain the exact genotype data we used if you have the access to UK Biobank.
 
 ```
 git clone https://github.com/eldronzhou/SDPR_paper.git
@@ -107,6 +107,8 @@ Rscript get_Res.R
 
 ## Workflow
 
+Sample list of UKB_real and 5000 ref for SBayesR can be obtained upon request.
+
 **<a name="real-geno"></a>1. Obtaining Genotype data**
 
 ```
@@ -124,7 +126,7 @@ cd UKB_real/ref
 # get genotype of 1000G EUR
 cd 1000G/; sh get_ref.sh
 
-# get reference of PRS/0CS
+# get reference of PRS_CS
 cd ../PRS_CS/; sh get_ref.sh
 
 # estimate reference for SBayesR
