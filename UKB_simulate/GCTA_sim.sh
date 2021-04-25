@@ -37,5 +37,8 @@ awk '{print $3,$6,$4,$7,$9,$10,$12,$8}' summary_stat/${j}/h2_${h2}/${sz}/sim_${i
 # convert to PRS-CS format for PRS-CS and SDPR
 awk 'BEGIN{ print "SNP","A1","A2","BETA","P"} NR>1 {print $3,$6,$4,$9,$12}' summary_stat/${j}/h2_${h2}/${sz}/sim_${i}.PHENO1.glm.linear > summary_stat/${j}/h2_${h2}/${sz}/sim_${i}_prscs.txt
 
+# convert to GEMMA format for DBSLMM
+awk 'NR>1 {print $1,$3,$2,$8,$8,$6,$4,$7,$9,$10,$11}' summary_stat/${j}/h2_${h2}/${sz}/sim_${i}.PHENO1.glm.linear > summary_stat/${j}/h2_${h2}/${sz}/sim_${i}_dbslmm.txt
+
 done
 done
