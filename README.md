@@ -73,7 +73,7 @@ We will use Scene1A as the example for demonstration. You can repeat the same pr
 cd result/Scene1A/h2_0.5/10K/
 
 # SBayesR
-cd gctb/; sbatch gctb.sh
+cd gctb/; sbatch --array=1-10 gctb.sh
 
 # PRS-CS
 cd ../PRS_CS/; sbatch --array=1-22 PRS_CS.sh
@@ -81,13 +81,13 @@ cd ../PRS_CS/; sbatch --array=1-22 PRS_CS.sh
 sbatch --array=1-10 PRS_CS_res.sh
 
 # LDpred
-cd ../ldpred/; sbatch ldpred.sh
+cd ../ldpred/; sbatch --array=1-10 ldpred.sh
 
 # P+T
-cd ../P+T/; sbatch clumping.sh
+cd ../P+T/; sbatch --array=1-10 clumping.sh
 
 # SDPR
-cd ../SDPR/; sbatch SDPR.sh
+cd ../SDPR/; sbatch --array=1-10 SDPR.sh
 
 # repeat the above procedures for 50K and 100K
 
