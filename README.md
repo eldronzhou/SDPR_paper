@@ -78,7 +78,7 @@ cd gctb/; sbatch gctb.sh
 # PRS-CS
 cd ../PRS_CS/; sbatch --array=1-22 PRS_CS.sh
 # after all jobs finish
-sbatch PRS_CS_res.sh
+sbatch --array=1-10 PRS_CS_res.sh
 
 # LDpred
 cd ../ldpred/; sbatch ldpred.sh
