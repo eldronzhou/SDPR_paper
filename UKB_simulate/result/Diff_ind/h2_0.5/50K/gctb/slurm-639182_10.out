@@ -1,0 +1,176 @@
+***********************************************
+* GCTB 2.02                                   *
+* Genome-wide Complex Trait Bayesian analysis *
+* Author: Jian Zeng, Luke Lloyd-Jones         *
+* MIT License                                 *
+***********************************************
+
+Analysis started: Sat May  8 04:29:05 2021
+
+Options:
+
+--sbayes R
+--mldm ./validate_10K.mldmlist
+--pi 0.95,0.02,0.02,0.01
+--gamma 0.0,0.01,0.1,1
+--gwas-summary ../../../../../summary_stat/Scene6/h2_0.5/50K/sim_10_cojo.txt
+--chain-length 4000
+--burn-in 2000
+--exclude-mhc 
+--out-freq 200
+--out ./sim_10_scaled
+
+Reading SNP info from [./validate_10K.mldmlist]...
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr1.ldm.full.info].
+58432 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr1.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr2.ldm.full.info].
+115217 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr2.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr3.ldm.full.info].
+162902 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr3.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr4.ldm.full.info].
+207389 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr4.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr5.ldm.full.info].
+250404 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr5.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr6.ldm.full.info].
+293356 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr6.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr7.ldm.full.info].
+331365 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr7.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr8.ldm.full.info].
+367902 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr8.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr9.ldm.full.info].
+398296 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr9.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr10.ldm.full.info].
+435713 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr10.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr11.ldm.full.info].
+472252 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr11.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr12.ldm.full.info].
+506578 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr12.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr13.ldm.full.info].
+532404 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr13.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr14.ldm.full.info].
+554685 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr14.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr15.ldm.full.info].
+573782 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr15.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr16.ldm.full.info].
+592996 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr16.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr17.ldm.full.info].
+611548 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr17.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr18.ldm.full.info].
+631331 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr18.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr19.ldm.full.info].
+645043 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr19.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr20.ldm.full.info].
+662295 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr20.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr21.ldm.full.info].
+671876 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr21.ldm.full.info].
+Reading SNP info from [../../../../../ref/gctb/validate_10K_chr22.ldm.full.info].
+681828 SNPs to be included from [../../../../../ref/gctb/validate_10K_chr22.ldm.full.info].
+0 SNPs in the MHC region (Chr6:28-34Mb) are excluded.
+Reading GWAS summary data from [../../../../../summary_stat/Scene6/h2_0.5/50K/sim_10_cojo.txt].
+681828 matched SNPs in the GWAS summary data (in total 681828 SNPs).
+681828 SNPs on 22 chromosomes are included.
+Reading full LD matrices from [./validate_10K.mldmlist]...
+Read full LD matrix for 58432 SNPs from [../../../../../ref/gctb/validate_10K_chr1.ldm.full.bin].
+Read full LD matrix for 56785 SNPs from [../../../../../ref/gctb/validate_10K_chr2.ldm.full.bin].
+Read full LD matrix for 47685 SNPs from [../../../../../ref/gctb/validate_10K_chr3.ldm.full.bin].
+Read full LD matrix for 44487 SNPs from [../../../../../ref/gctb/validate_10K_chr4.ldm.full.bin].
+Read full LD matrix for 43015 SNPs from [../../../../../ref/gctb/validate_10K_chr5.ldm.full.bin].
+Read full LD matrix for 42952 SNPs from [../../../../../ref/gctb/validate_10K_chr6.ldm.full.bin].
+Read full LD matrix for 38009 SNPs from [../../../../../ref/gctb/validate_10K_chr7.ldm.full.bin].
+Read full LD matrix for 36537 SNPs from [../../../../../ref/gctb/validate_10K_chr8.ldm.full.bin].
+Read full LD matrix for 30394 SNPs from [../../../../../ref/gctb/validate_10K_chr9.ldm.full.bin].
+Read full LD matrix for 37417 SNPs from [../../../../../ref/gctb/validate_10K_chr10.ldm.full.bin].
+Read full LD matrix for 36539 SNPs from [../../../../../ref/gctb/validate_10K_chr11.ldm.full.bin].
+Read full LD matrix for 34326 SNPs from [../../../../../ref/gctb/validate_10K_chr12.ldm.full.bin].
+Read full LD matrix for 25826 SNPs from [../../../../../ref/gctb/validate_10K_chr13.ldm.full.bin].
+Read full LD matrix for 22281 SNPs from [../../../../../ref/gctb/validate_10K_chr14.ldm.full.bin].
+Read full LD matrix for 19097 SNPs from [../../../../../ref/gctb/validate_10K_chr15.ldm.full.bin].
+Read full LD matrix for 19214 SNPs from [../../../../../ref/gctb/validate_10K_chr16.ldm.full.bin].
+Read full LD matrix for 18552 SNPs from [../../../../../ref/gctb/validate_10K_chr17.ldm.full.bin].
+Read full LD matrix for 19783 SNPs from [../../../../../ref/gctb/validate_10K_chr18.ldm.full.bin].
+Read full LD matrix for 13712 SNPs from [../../../../../ref/gctb/validate_10K_chr19.ldm.full.bin].
+Read full LD matrix for 17252 SNPs from [../../../../../ref/gctb/validate_10K_chr20.ldm.full.bin].
+Read full LD matrix for 9581 SNPs from [../../../../../ref/gctb/validate_10K_chr21.ldm.full.bin].
+Read full LD matrix for 9952 SNPs from [../../../../../ref/gctb/validate_10K_chr22.ldm.full.bin].
+Per-SNP window size mean 37418.7 sd 13413.4.
+LD matrix diagonal mean 1.00046 sd 0.0101639.
+Read LD matrix for 681828 SNPs (time used: 0:3:43).
+
+Data summary:
+                                             mean       sd
+            GWAS SNP Phenotypic variance    1.013    0.005
+                 GWAS SNP heterozygosity    0.335    0.128
+                    GWAS SNP sample size    44895     4990
+                         GWAS SNP effect   -0.000    0.011
+                             GWAS SNP SE    0.009    0.002
+            MME left-hand-side diagonals 44915.594 5013.480
+                     MME right-hand-side   -0.652  270.435
+                    LD sampling variance    1.247    0.093
+                                LD score   22.497   17.698
+
+Approximate BayesR model fitted.
+scale factor: 1.52503e-06
+Gamma:    0 0.01  0.1    1
+Fitting model assuming scaled genotypes 
+MCMC launched ...
+  Chain length: 4000 iterations
+  Burn-in: 2000 iterations
+
+   Iter       NumSnp1      NumSnp2      NumSnp3      NumSnp4      SigmaSq      ResVar       GenVar         hsq       Rounding     TimeLeft  
+    200       673352        7467          223          786        0.0008       0.4324       0.5945       0.5789       0.0029       0:48:27  
+
+Error: Residual variance is negative (-0.003663). This may indicate that effect sizes are "blowing up" likely due to a convergence problem. If SigmaSq variable is increasing with MCMC iterations, then this further indicates MCMC may not converge. Please refer to our website (https://cnsgenomics.com/software/gctb) for further information on this problem.
+
+Analysis finished: Sat May  8 04:36:59 2021
+Computational time: 0:7:54
+-------------------------------------------------------------------------------
+There are messages associated with the following module(s):
+-------------------------------------------------------------------------------
+
+PCRE/8.38-foss-2016b:
+   This module is being deprecated and will be removed from the module list
+   in May 2021. If you need an updated or rebuilt version, please search for
+   a newer version with module avail or email us at hpc@yale.edu with any
+   questions you have.
+
+
+R/3.4.1-foss-2016b:
+   This module is being deprecated and will be removed from the module list
+   in May 2021. If you need an updated or rebuilt version, please search for
+   a newer version with module avail or email us at hpc@yale.edu with any
+   questions you have.
+
+-------------------------------------------------------------------------------
+
+
+The following have been reloaded with a version change:
+  1) PCRE/8.39-foss-2016b => PCRE/8.38-foss-2016b
+
+Error in file(file, "rt") : cannot open the connection
+Calls: read.table -> file
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'sim_10_scaled.snpRes': No such file or directory
+Execution halted
+
+The following have been reloaded with a version change:
+  1) PLINK/2_x86_64_20180428 => PLINK/1.90-beta5.3
+
+PLINK v1.90b4.6 64-bit (15 Aug 2017)           www.cog-genomics.org/plink/1.9/
+(C) 2005-2017 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to ../predict/gctb/sim_10.log.
+Options in effect:
+  --bfile /ysm-gpfs/pi/zhao/gz222/UKB_simulate/genotype/test/test_10K
+  --out ../predict/gctb/sim_10
+  --score sim_10_scaled.txt 1 2 3 header
+
+385429 MB RAM detected; reserving 192714 MB for main workspace.
+681828 variants loaded from .bim file.
+10000 people (4643 males, 5357 females) loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 10000 founders and 0 nonfounders present.
+Calculating allele frequencies... 0%1%2%3%4%5%6%7%8%9%10%11%12%13%14%15%16%17%18%19%20%21%22%23%24%25%26%27%28%29%30%31%32%33%34%35%36%37%38%39%40%41%42%43%44%45%46%47%48%49%50%51%52%53%54%55%56%57%58%59%60%61%62%63%64%65%66%67%68%69%70%71%72%73%74%75%76%77%78%79%80%81%82%83%84%85%86%87%88%89%90%91%92%93%94%95%96%97%98%99% done.
+Total genotyping rate is 0.997653.
+681828 variants and 10000 people pass filters and QC.
+Note: No phenotypes present.
+Error: Failed to open sim_10_scaled.txt.
