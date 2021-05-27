@@ -49,7 +49,7 @@ Next run the simulation script to generate summary statistics. You need to chang
 sbatch GCTA_sim.sh
 
 # change the j in GCTA_sim.sh and resubmit
-# for Scene1B, Scene1C and Scene4
+# for Scene1B, Scene1C, Scene4 and Scene5
 ```
 
 **<a name="sim-ref"></a>3. Constructing the reference LD matrix**
@@ -94,6 +94,15 @@ cd ../SDPR/; sbatch --array=1-10 SDPR.sh
 # after all jobs finished, make the plot
 # under the directory of UKB_simulate/result/Scene1A/h2_0.5/
 Rscript get_Res.R
+
+# LDpred2
+cd ../ldpred2/; sbatch --array=1-10%4 ldpred2.sh
+
+# lassosum
+cd ../LASSOSUM/; sbatch --array=1-10 lassosum.sh
+
+# DBSLMM
+cd ../DBSLMM/; sbatch --array=1-10 dbslmm.sh
 ```
 
 # <a name="real"></a>Real data applications
@@ -176,6 +185,15 @@ cd ../P+T/; sbatch clumping.sh
 cd ../SDPR/; sbatch --array=1-22 SDPR.sh
 # after all jobs finish
 sbatch SDPR_res.sh
+
+# LDpred2
+cd ../ldpred2/; sbatch ldpred2.sh
+
+# lassosum
+cd ../LASSOSUM/; sbatch lassosum.sh
+
+# DBSLMM
+cd ../DBSLMM/; sbatch dbslmm.sh
 ```
 
 We provide the script to make the figure under the directory `UKB_real/HGT/result/predict`, although the input file is not available because the restricted access to the UK Biobank phenotype information. 
