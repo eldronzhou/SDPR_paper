@@ -43,5 +43,7 @@ system("rm -rf clean1.txt")
 
 print(median(b$N))
 
+# set up input for SDPR by specifying which SNPs are typed on one array
+system("Rscript get_array.R")
 
 

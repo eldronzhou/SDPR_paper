@@ -7,5 +7,5 @@
 
 i=${SLURM_ARRAY_TASK_ID}
 
-~/SDPR/SDPR -ref_dir ../../../ref/SDOR -valid ../../../genotype/Ukb_imp_v2_hm3.bim -ss ../../summ_stats/PRS_cs.txt  -N 90989 -chr ${i} -out ./res_${i}.txt -a 0.1 -thin 1 -n_threads 3 -mcmc
+~/SDPR/SDPR -ref_dir ../../../ref/SDOR -valid ../../../genotype/Ukb_imp_v2_hm3.bim -ss ../../summ_stats/SDPR.txt -opt_llk 2 -N 90989 -chr ${i} -out ./res_${i}.txt -a 0.1 -thin 1 -n_threads 3 -mcmc
 
