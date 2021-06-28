@@ -3,7 +3,7 @@ library(purrr)
 library(stringr)
 library(ggplot2)
 
-bd = read.table("../../reportdate.tab", sep="\t", header=T, stringsAsFactors=F)
+bd = read.table("../phenotype/reportdate.tab", sep="\t", header=T, stringsAsFactors=F)
 
 lvl.100626 <- c(-7,-3,-1,1,2,3,4,5)
 lbl.100626 <- c("None of the above","Prefer not to answer","Do not know","Cholesterol lowering medication","Blood pressure medication","Insulin","Hormone replacement therapy","Oral contraceptive pill or minipill")
@@ -42,13 +42,14 @@ lvl.1002 <- c(1)
 lbl.1002 <- c("Caucasian")
 bd$f.22006.0.0 <- ordered(bd$f.22006.0.0, levels=lvl.1002, labels=lbl.1002)
 
-pcs = read.table("../../../genotype/pcs.txt", header=T)
+pcs = read.table("../phenotype/pcs.txt", header=T)
 
-SDPR = read.table("SDPR/SDPR.profile", header=T, stringsAsFactors=F)
+SDPR = read.table("SDPR/res_new.profile", header=T, stringsAsFactors=F)
+# SDPR2 = read.table("SDPR/res.profile", header=T, stringsAsFactors=F)
 gctb = read.table("gctb/gctb.profile", header=T, stringsAsFactors=F)
 
 read_profile = function(dir) {
-        ldpred_files = list.files(path=dir, pattern="*.profile$", full.names=T)
+        ldpred_files = list.files(path=dir, pattern="*.profile.gz$", full.names=T)
         for (i in 1:length(ldpred_files)) {
                 if (i == 1) {
                         ldpred = read.table(ldpred_files[i], header=T)
@@ -66,8 +67,19 @@ read_profile = function(dir) {
 }
 
 PRS_cs = read_profile("./PRS_CS/")
+colnames(PRS_cs)[2] = "SCORE"
 
 ldpred = read_profile("./ldpred/")
+
+ldpred2 = read.table("ldpred2/ldpred2.sscore.gz", 
+                     header=F, stringsAsFactors=F)[,-c(2:8)]
+colnames(ldpred2)[1] = "FID"
+
+lassosum = read.table("lassosum/lassosum.sscore.gz",
+                      header=F, stringsAsFactors=F)[,-c(2:8)]
+colnames(lassosum)[1] = "FID"
+
+dbslmm = read_profile("dbslmm/")
 
 clumping = read_profile("./P+T/")
 
@@ -97,12 +109,15 @@ get_cor = function(dat, i=-1) {
         1 - sum(a^2)/sum(b^2)
 }
 
+SDPR = read.table("SDPR/res_large.profile", header=T, stringsAsFactors=F)
+
 set.seed(1)
 res = replicate(10, {
         idx = sort(sample.int(length(fid), size=round(length(fid)/2), replace=F))
         validate_idx = fid[idx]
         test_idx = fid[-idx]
         
+        # ldpred
         validate_dat = dat[dat$ID %in% validate_idx, ] %>%
                 left_join(ldpred, by=c("ID"="FID"))
         
@@ -117,6 +132,54 @@ res = replicate(10, {
                 left_join(ldpred, by=c("ID"="FID"))
         
         cor_ldpred = get_cor(test_dat, max_idx)
+        
+        # ldpred2
+        validate_dat = dat[dat$ID %in% validate_idx, ] %>%
+                left_join(ldpred2, by=c("ID"="FID"))
+        
+        validate_cor = rep(0, ncol(validate_dat)-16)
+        for (i in 16:ncol(validate_dat)) {
+                validate_cor[i] = get_cor(validate_dat, i)
+        }
+        max_idx = which.max(validate_cor)
+        print(paste0(colnames(validate_dat)[max_idx], ": ",
+                     validate_cor[max_idx]))
+        test_dat = dat[dat$ID %in% test_idx, ] %>%
+                left_join(ldpred2, by=c("ID"="FID"))
+        
+        cor_ldpred2 = get_cor(test_dat, max_idx)
+        
+        # dbslmm
+        validate_dat = dat[dat$ID %in% validate_idx, ] %>%
+                left_join(dbslmm, by=c("ID"="FID"))
+        
+        validate_cor = rep(0, ncol(validate_dat)-16)
+        for (i in 16:ncol(validate_dat)) {
+                validate_cor[i] = get_cor(validate_dat, i)
+        }
+        max_idx = which.max(validate_cor)
+        print(paste0(colnames(validate_dat)[max_idx], ": ",
+                     validate_cor[max_idx]))
+        test_dat = dat[dat$ID %in% test_idx, ] %>%
+                left_join(dbslmm, by=c("ID"="FID"))
+        
+        cor_dbslmm = get_cor(test_dat, max_idx)
+        
+        # lassosum
+        validate_dat = dat[dat$ID %in% validate_idx, ] %>%
+                left_join(lassosum, by=c("ID"="FID"))
+        
+        validate_cor = rep(0, ncol(validate_dat)-16)
+        for (i in 16:ncol(validate_dat)) {
+                validate_cor[i] = get_cor(validate_dat, i)
+        }
+        max_idx = which.max(validate_cor)
+        print(paste0(colnames(validate_dat)[max_idx], ": ",
+                     validate_cor[max_idx]))
+        test_dat = dat[dat$ID %in% test_idx, ] %>%
+                left_join(lassosum, by=c("ID"="FID"))
+        
+        cor_lassosum = get_cor(test_dat, max_idx)
         
         validate_dat = dat[dat$ID %in% validate_idx, ] %>%
                 left_join(clumping, by=c("ID"="FID"))
@@ -139,8 +202,12 @@ res = replicate(10, {
         
         test_dat = dat[dat$ID %in% test_idx, ] %>%
                 left_join(gctb, by=c("ID"="FID"))
+        
         cor_gctb = get_cor(test_dat)
-
+        
+        test_dat = dat[dat$ID %in% test_idx, ] %>%
+                left_join(PRS_cs, by=c("ID"="FID"))
+        
         validate_dat = dat[dat$ID %in% validate_idx, ] %>%
                 left_join(PRS_cs, by=c("ID"="FID"))
         
@@ -155,26 +222,74 @@ res = replicate(10, {
                 left_join(PRS_cs, by=c("ID"="FID"))
         
         cor_PRSCS = get_cor(test_dat, max_idx)
-        c(cor_SDPR, cor_PRSCS, cor_gctb, cor_ldpred, cor_clumping)
+        c(cor_SDPR, cor_PRSCS, cor_gctb, cor_ldpred, cor_clumping,
+          cor_ldpred2, cor_lassosum, cor_dbslmm)
+        print(c(cor_SDPR, cor_PRSCS, cor_gctb, cor_ldpred, cor_clumping,
+                cor_ldpred2, cor_lassosum, cor_dbslmm))
 })
 
 res = t(res)
-res2 = data.frame(nrow=10*5, ncol=2)
+res2 = data.frame(nrow=10*8, ncol=2)
 for (i in 1:10) {
-        res2[5*(i-1)+1,1] = res[i,1]; res2[5*(i-1)+1,2] = "SDPR"
-        res2[5*(i-1)+2,1] = res[i,2]; res2[5*(i-1)+2,2] = "PRS-CS"
-        res2[5*(i-1)+3,1] = res[i,3]; res2[5*(i-1)+3,2] = "SBayesR"
-        res2[5*(i-1)+4,1] = res[i,4]; res2[5*(i-1)+4,2] = "LDpred"
-        res2[5*(i-1)+5,1] = res[i,5]; res2[5*(i-1)+5,2] = "P+T"
+        res2[8*(i-1)+1,1] = res[i,1]; res2[8*(i-1)+1,2] = "SDPR"
+        res2[8*(i-1)+2,1] = res[i,2]; res2[8*(i-1)+2,2] = "PRS-CS"
+        res2[8*(i-1)+3,1] = res[i,3]; res2[8*(i-1)+3,2] = "SBayesR"
+        res2[8*(i-1)+4,1] = res[i,4]; res2[8*(i-1)+4,2] = "LDpred"
+        res2[8*(i-1)+5,1] = res[i,5]; res2[8*(i-1)+5,2] = "P+T"
+        res2[8*(i-1)+6,1] = res[i,6]; res2[8*(i-1)+6,2] = "LDpred2"
+        res2[8*(i-1)+7,1] = res[i,7]; res2[8*(i-1)+7,2] = "Lassosum"
+        res2[8*(i-1)+8,1] = res[i,8]; res2[8*(i-1)+8,2] = "DBSLMM"
 }
+
 colnames(res2) = c("R2","method")
-res2$method = factor(res2$method, levels=c("SDPR","PRS-CS","SBayesR","LDpred","P+T"))
+res2$method = factor(res2$method, levels=c("SDPR","PRS-CS","SBayesR","LDpred","P+T",
+                                           "LDpred2","Lassosum","DBSLMM"))
 res2 = res2 %>% group_by(method) %>% mutate(med=mean(R2))
+
+res3 = data.frame(mean=colMeans(res), sd=apply(res, 2, sd))
+method = c("SDPR","PRS-CS","SBayesR","LDpred","P+T",
+           "LDpred2","Lassosum","DBSLMM")
+res3$method = factor(method, levels=method)
+
 tiff("TC.tiff", units="in", width=6, height=4, res=300)
-ggplot(res2, aes(x=method, y=R2)) + geom_boxplot(outlier.shape=NA, aes(fill=method)) + 
-        geom_jitter(size=.5) + ggtitle("Total Cholesterol") + ylim(c(0.02,.12)) + 
-        ylab("R2") + 
-        theme(plot.title = element_text(hjust = 0.5), text=element_text(size=10))
+ggplot(res3, aes(x=method, y=mean, fill=method)) + 
+        geom_bar(stat="identity") + 
+        geom_errorbar(aes(x=method, ymin=mean-sd, ymax=mean+sd), width=.5) + 
+        ggtitle("TC") + ylim(c(0,.3)) + ylab("R2") + theme_bw(10) +
+        theme(plot.title=element_text(hjust=0.5), text=element_text(size=10))  
 dev.off()
+
+set.seed(1)
+res_auto = replicate(10, {
+        idx = sort(sample.int(length(fid), size=round(length(fid)/2), replace=F))
+        validate_idx = fid[idx]
+        test_idx = fid[-idx]
+        
+        test_dat = dat[dat$ID %in% test_idx, ] %>%
+                left_join(SDPR, by=c("ID"="FID"))
+        
+        cor_SDPR = get_cor(test_dat)
+        
+        test_dat = dat[dat$ID %in% test_idx, ] %>%
+                left_join(PRS_cs[,c(1,ncol(PRS_cs))], by=c("ID"="FID"))
+        colnames(test_dat)[ncol(test_dat)] = "SCORE"
+        cor_PRSCS = get_cor(test_dat)
+        
+        test_dat = dat[dat$ID %in% test_idx, ] %>%
+                left_join(gctb, by=c("ID"="FID"))
+        cor_gctb = get_cor(test_dat)
+        
+        test_dat = dat[dat$ID %in% test_idx, ] %>%
+                left_join(ldpred2[,c(1,ncol(ldpred2))], by=c("ID"="FID"))
+        colnames(test_dat)[ncol(test_dat)] = "SCORE"
+        cor_ldpred2 = get_cor(test_dat)
+        
+        c(cor_SDPR, cor_PRSCS, cor_gctb, cor_ldpred2)
+        print(c(cor_SDPR, cor_PRSCS, cor_gctb, cor_ldpred2))
+})
+colMeans(t(res_auto))
+
+
+
 
 

@@ -221,3 +221,35 @@ ggplot(res3, aes(x=method, y=mean, fill=method)) +
         ggtitle("Height") + ylim(c(0,.3)) + ylab("R2") + theme_bw(10) +
         theme(plot.title=element_text(hjust=0.5), text=element_text(size=10))  
 dev.off()
+
+set.seed(1)
+res_auto = replicate(10, {
+        idx = sort(sample.int(length(fid), size=round(length(fid)/2), replace=F))
+        validate_idx = fid[idx]
+        test_idx = fid[-idx]
+        
+        test_dat = height[height$ID %in% test_idx, ] %>%
+                left_join(SDPR, by=c("ID"="FID"))
+        
+        cor_SDPR = get_cor(test_dat)
+        
+        test_dat = height[height$ID %in% test_idx, ] %>%
+                left_join(PRS_cs[,c(1,ncol(PRS_cs))], by=c("ID"="FID"))
+        colnames(test_dat)[ncol(test_dat)] = "SCORE"
+        cor_PRSCS = get_cor(test_dat)
+        
+        test_dat = height[height$ID %in% test_idx, ] %>%
+                left_join(gctb, by=c("ID"="FID"))
+        cor_gctb = get_cor(test_dat)
+        
+        test_dat = height[height$ID %in% test_idx, ] %>%
+                left_join(ldpred2[,c(1,ncol(ldpred2))], by=c("ID"="FID"))
+        colnames(test_dat)[ncol(test_dat)] = "SCORE"
+        cor_ldpred2 = get_cor(test_dat)
+        
+        c(cor_SDPR, cor_PRSCS, cor_gctb, cor_ldpred2)
+        print(c(cor_SDPR, cor_PRSCS, cor_gctb, cor_ldpred2))
+})
+colMeans(t(res_auto))
+
+
